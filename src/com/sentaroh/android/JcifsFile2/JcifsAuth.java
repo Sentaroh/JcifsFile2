@@ -68,8 +68,8 @@ public class JcifsAuth {
      * @param domain               A domain name
      * @param user                 A user name
      * @param pass                 A password for user
-     * @param min_version          min SMB version ("SMB1" or "SMB202")
-     * @param max_version          max SMB version ("SMB1" or "SMB311")
+     * @param min_version          SMB202/SMB210/SMB300/SMB302/SMB311
+     * @param max_version          SMB202/SMB210/SMB300/SMB302/SMB311
      * @throws JcifsException
      */
     public JcifsAuth(String smb_level, String domain, String user, String pass, String min_version, String max_version) throws JcifsException {
@@ -83,8 +83,8 @@ public class JcifsAuth {
      * @param domain               A domain name
      * @param user                 A user name
      * @param pass                 A password for user
-     * @param min_version          min SMB version ("SMB1" or "SMB202")
-     * @param max_version          max SMB version ("SMB1" or "SMB311")
+     * @param min_version          SMB202/SMB210/SMB300/SMB302/SMB311
+     * @param max_version          SMB202/SMB210/SMB300/SMB302/SMB311
      * @param prop   				Property
      * @throws JcifsException
      */
