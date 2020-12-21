@@ -1,4 +1,4 @@
-### JcifsFile2
+# JcifsFile2
 
 jcifsとjcifs-ngを統一的に扱うWrapper
 
@@ -24,5 +24,8 @@ JcifsFile jf_smb2=new JcifsFile("smb://192.168.0.10/share/readme.txt", auth_smb2
 JcifsFile[] fl=jf_smb1.listFiles();
 
 for(JcifsFile item:fl) System.out.println("file="+item.getName());
-
 ```
+# How to build
+- Clone or download from GitHub
+- Import by Eclipse(File -> Import...)
+- Export as JAR file (exclude the jars directory)
