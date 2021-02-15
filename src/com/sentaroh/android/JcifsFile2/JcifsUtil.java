@@ -71,7 +71,7 @@ public class JcifsUtil {
         if (smb_level.equals(JcifsAuth.JCIFS_FILE_SMB1)) {
             return getSmbHostIpAddressFromNameSmb1(hn);
         } else if (smb_level.equals(JcifsAuth.JCIFS_FILE_SMB23)) {
-            return getSmbHostIpAddressFromNameSmb214(hn);
+            return getSmbHostIpAddressFromNameSmb23(hn);
         }
         return null;
     }
@@ -90,17 +90,17 @@ public class JcifsUtil {
         return ipAddress;
     }
 
-    final static private String getSmbHostIpAddressFromNameSmb214(String hn) {
+    final static private String getSmbHostIpAddressFromNameSmb23(String hn) {
         String ipAddress = null;
         try {
             jcifsng.context.BaseContext bc = new jcifsng.context.BaseContext(new jcifsng.config.PropertyConfiguration(System.getProperties()));
             ipAddress = bc.getNameServiceClient().getByName(hn).getHostAddress();
         } catch (UnknownHostException e) {
-			log.error("getSmbHostIpAddressFromNameSmb2 UnknownHostException", e);
+			log.error("getSmbHostIpAddressFromNameSmb23 UnknownHostException", e);
         } catch (jcifsng.CIFSException e) {
-        	log.error("getSmbHostIpAddressFromNameSmb2 CIFSException", e);
+        	log.error("getSmbHostIpAddressFromNameSmb23 CIFSException", e);
         } catch (Exception e) {
-        	log.error("getSmbHostIpAddressFromNameSmb2 Exception", e);
+        	log.error("getSmbHostIpAddressFromNameSmb23 Exception", e);
         }
         return ipAddress;
     }
@@ -125,7 +125,7 @@ public class JcifsUtil {
         if (smb_level.equals(JcifsAuth.JCIFS_FILE_SMB1)) {
             return getSmbHostNameFromAddressSmb1(address);
         } else if (smb_level.equals(JcifsAuth.JCIFS_FILE_SMB23)) {
-            return getSmbHostNameFromAddressSmb214(address);
+            return getSmbHostNameFromAddressSmb23(address);
         }
         return null;
     }
@@ -153,7 +153,7 @@ public class JcifsUtil {
         return srv_name;
     }
 
-    final static private String getSmbHostNameFromAddressSmb214(String address) {
+    final static private String getSmbHostNameFromAddressSmb23(String address) {
         String srv_name = "";
         try {
             jcifsng.context.BaseContext bc = new jcifsng.context.BaseContext(new jcifsng.config.PropertyConfiguration(System.getProperties()));
@@ -170,11 +170,11 @@ public class JcifsUtil {
                 }
             }
         } catch (UnknownHostException e) {
-        	log.error("getSmbHostNameFromAddressSmb2 UnknownHostException", e);
+        	log.error("getSmbHostNameFromAddressSmb23 UnknownHostException", e);
         } catch (jcifsng.CIFSException e) {
-        	log.error("getSmbHostNameFromAddressSmb2 CIFSException", e);
+        	log.error("getSmbHostNameFromAddressSmb23 CIFSException", e);
         } catch (Exception e) {
-        	log.error("getSmbHostNameFromAddressSmb2 Exception", e);
+        	log.error("getSmbHostNameFromAddressSmb23 Exception", e);
         }
         return srv_name;
     }
