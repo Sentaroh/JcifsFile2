@@ -36,7 +36,7 @@ public class JcifsUtil {
 
 	private static final Logger log = LoggerFactory.getLogger(JcifsUtil.class);
 	
-    final static public boolean isValidIpAddress(String in_addr) {
+    final static public boolean isValidIpV4Address(String in_addr) {
         boolean result = false;
         String strip_addr = in_addr;
         if (in_addr.indexOf(":") >= 0) strip_addr = in_addr.substring(0, in_addr.indexOf(":"));
