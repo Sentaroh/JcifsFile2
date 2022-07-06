@@ -28,6 +28,10 @@ import java.util.Properties;
 public class JcifsAuth {
     final static public String JCIFS_FILE_SMB1 = "SMBv1";
     final static public String JCIFS_FILE_SMB23 = "SMBv2/3";
+
+    final static public String SMB_CLIENT_MIN_VERSION = "SMB202"; //prop jcifs.smb.client.minVersion
+    final static public String SMB_CLIENT_MAX_VERSION = "SMB311"; //prop jcifs.smb.client.maxVersion
+
     private jcifs13.smb.NtlmPasswordAuthentication mSmb1Auth = null;
     private jcifs.CIFSContext mSmb23Auth = null;
     private String mSmbLevel = JCIFS_FILE_SMB23;
@@ -44,7 +48,7 @@ public class JcifsAuth {
      * @throws JcifsException
      */
     public JcifsAuth(String smb_level, String domain, String user, String pass) throws JcifsException {
-    	init_type(smb_level, domain, user, pass, "SMB202", "SMB311", new Properties());
+    	init_type(smb_level, domain, user, pass, SMB_CLIENT_MIN_VERSION, SMB_CLIENT_MAX_VERSION, new Properties());
     }
 
     /**
@@ -58,7 +62,7 @@ public class JcifsAuth {
      * @throws JcifsException
      */
     public JcifsAuth(String smb_level, String domain, String user, String pass, Properties prop) throws JcifsException {
-    	init_type(smb_level, domain, user, pass, "SMB202", "SMB311", prop);
+    	init_type(smb_level, domain, user, pass, SMB_CLIENT_MIN_VERSION, SMB_CLIENT_MAX_VERSION, prop);
     }
 
     /**
