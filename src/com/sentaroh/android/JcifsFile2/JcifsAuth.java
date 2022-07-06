@@ -28,8 +28,12 @@ import java.util.Properties;
 public class JcifsAuth {
     final static public String JCIFS_FILE_SMB1 = "SMBv1";
     final static public String JCIFS_FILE_SMB23 = "SMBv2/3";
-    private jcifs.smb.NtlmPasswordAuthentication mSmb1Auth = null;
-    private jcifsng.CIFSContext mSmb23Auth = null;
+
+    final static public String SMB_CLIENT_MIN_VERSION = "SMB202"; //prop jcifs.smb.client.minVersion
+    final static public String SMB_CLIENT_MAX_VERSION = "SMB311"; //prop jcifs.smb.client.maxVersion
+
+    private jcifs13.smb.NtlmPasswordAuthentication mSmb1Auth = null;
+    private jcifs.CIFSContext mSmb23Auth = null;
     private String mSmbLevel = JCIFS_FILE_SMB23;
 
     private String mDomain = null, mUserName = null, mUserPass = null;
@@ -44,7 +48,7 @@ public class JcifsAuth {
      * @throws JcifsException
      */
     public JcifsAuth(String smb_level, String domain, String user, String pass) throws JcifsException {
-    	init_type(smb_level, domain, user, pass, "SMB202", "SMB311", new Properties());
+    	init_type(smb_level, domain, user, pass, SMB_CLIENT_MIN_VERSION, SMB_CLIENT_MAX_VERSION, new Properties());
     }
 
     /**
@@ -58,7 +62,7 @@ public class JcifsAuth {
      * @throws JcifsException
      */
     public JcifsAuth(String smb_level, String domain, String user, String pass, Properties prop) throws JcifsException {
-    	init_type(smb_level, domain, user, pass, "SMB202", "SMB311", prop);
+    	init_type(smb_level, domain, user, pass, SMB_CLIENT_MIN_VERSION, SMB_CLIENT_MAX_VERSION, prop);
     }
 
     /**
@@ -98,17 +102,17 @@ public class JcifsAuth {
         mUserName = user;
         mUserPass = pass;
         if (isSmb1()) {
-        	mSmb1Auth = new jcifs.smb.NtlmPasswordAuthentication(domain, user, pass);
+        	mSmb1Auth = new jcifs13.smb.NtlmPasswordAuthentication(domain, user, pass);
         } else if (isSmb23()) {
             try {
                 Properties prop_new = new Properties(prop);
                 prop_new.setProperty("jcifs.smb.client.minVersion", min_version);
                 prop_new.setProperty("jcifs.smb.client.maxVersion", max_version);
 
-                jcifsng.context.BaseContext bc = new jcifsng.context.BaseContext(new jcifsng.config.PropertyConfiguration(prop_new));
-                jcifsng.smb.NtlmPasswordAuthenticator creds = new jcifsng.smb.NtlmPasswordAuthenticator(domain, user, pass);
+                jcifs.context.BaseContext bc = new jcifs.context.BaseContext(new jcifs.config.PropertyConfiguration(prop_new));
+                jcifs.smb.NtlmPasswordAuthenticator creds = new jcifs.smb.NtlmPasswordAuthenticator(domain, user, pass);
                 mSmb23Auth = bc.withCredentials(creds);
-            } catch (jcifsng.CIFSException e) {
+            } catch (jcifs.CIFSException e) {
                 e.printStackTrace();
                 throw new JcifsException(e, -1, e.getCause());
             }
@@ -130,11 +134,11 @@ public class JcifsAuth {
         return mSmbLevel.equals(JCIFS_FILE_SMB23);
     }
 
-    public jcifs.smb.NtlmPasswordAuthentication getSmb1Auth() {
+    public jcifs13.smb.NtlmPasswordAuthentication getSmb1Auth() {
         return mSmb1Auth;
     }
 
-    public jcifsng.CIFSContext getSmb214Auth() {
+    public jcifs.CIFSContext getSmb214Auth() {
         return mSmb23Auth;
     }
 
